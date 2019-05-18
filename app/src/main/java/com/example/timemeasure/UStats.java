@@ -1,6 +1,7 @@
 package com.example.timemeasure;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,14 +22,15 @@ import java.util.List;
  * Created by User on 3/2/15.
  */
 public class UStats {
-/*
-    private static List<UsageEvents.Event> activitylist = new ArrayList<>();
+    public static DataBaseHelper db;
+    /*
+        private static List<UsageEvents.Event> activitylist = new ArrayList<>();
 
-    public static List<UsageEvents.Event> getActivitylist() {
-        return activitylist;
-    }
-*/
+        public static List<UsageEvents.Event> getActivitylist() {
+            return activitylist;
 
+        }
+    */
     @SuppressLint("SimpleDateFormat")
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy HH:mm:ss");
     private static final String TAG = UStats.class.getSimpleName();
@@ -71,17 +75,22 @@ public class UStats {
         return usageStatsList;
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void printUsageStats(List<UsageStats> usageStatsList){
         for (UsageStats u : usageStatsList){
             Log.d(TAG, "Pkg: " + u.getPackageName() +  "\t" + "ForegroundTime: "
                     + u.getTotalTimeInForeground()) ;
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate localDate = LocalDate.now();
+            db.addApplication(new ApplicationUsageData(u.getPackageName(), u.getTotalTimeInForeground(), dtf.format(localDate).toString()));
         }
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    static void printCurrentUsageStatus(Context context){
+        void printCurrentUsageStatus(Context context, DataBaseHelper db){
+        this.db = db;
         printUsageStats(getUsageStatsList(context));
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

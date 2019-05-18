@@ -12,17 +12,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import static com.example.timemeasure.UStats.printCurrentUsageStatus;
+//import static com.example.timemeasure.UStats.printCurrentUsageStatus;
 
 
 public class MainActivity extends Activity {
     Button statsBtn;
+    private DataBaseHelper db;
+    private UStats ustats;
+
+    DataBaseHelper getDbHelper() {
+        return this.db;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DataBaseHelper(this, MainActivity.this);
+        ustats = new UStats();
 
 
         //Check if permission enabled
@@ -35,7 +43,7 @@ public class MainActivity extends Activity {
         statsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                printCurrentUsageStatus(MainActivity.this);
+                ustats.printCurrentUsageStatus(MainActivity.this, db);
 
             }
         });
