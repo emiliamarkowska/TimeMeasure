@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+
 public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "DATABASE_EVENTS_AND_EXTRA_ACTIVITY";
     public static final int DATABASE_VERSION = 1;
@@ -47,7 +48,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<ApplicationUsageData> getWydatki()
+    public List<ApplicationUsageData> getApplicationUsageData()
     {
         List<ApplicationUsageData> applications = new ArrayList<ApplicationUsageData>();
 
@@ -70,6 +71,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return applications;
     }
 
+    public ApplicationUsageData getAppWithIndex(int index)
+    {
+        return getApplicationUsageData().get(index);
+    }
     public void addApplication(ApplicationUsageData application)
     {
         ContentValues cvApps = new ContentValues();
@@ -79,5 +84,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         db.insert(EVENTS_TABLE_NAME, null, cvApps);
 
+    }
+
+    public String executeCommand()
+    {
+        return getAppWithIndex(1).getPackageName();
     }
 }

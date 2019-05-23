@@ -2,6 +2,7 @@ package com.example.timemeasure;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -17,7 +18,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     Button statsBtn;
-    private DataBaseHelper db;
+    TextView textExample;
+    public DataBaseHelper db;
     private UStats ustats;
 
     DataBaseHelper getDbHelper() {
@@ -40,10 +42,13 @@ public class MainActivity extends Activity {
         }
 
         statsBtn = (Button) findViewById(R.id.stats_btn);
+        textExample = (TextView)findViewById(R.id.justAView);
         statsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ustats.printCurrentUsageStatus(MainActivity.this, db);
+                String toDisplay = db.executeCommand();
+                textExample.setText(toDisplay);
 
             }
         });

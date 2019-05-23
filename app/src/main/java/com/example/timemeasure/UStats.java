@@ -41,7 +41,7 @@ public class UStats {
         int interval = UsageStatsManager.INTERVAL_YEARLY;
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.YEAR, -1);
+        calendar.add(Calendar.DATE, -1);
         long startTime = calendar.getTimeInMillis();
 
         Log.d(TAG, "Range start:" + dateFormat.format(startTime) );
@@ -83,6 +83,7 @@ public class UStats {
                     + u.getTotalTimeInForeground()) ;
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDate localDate = LocalDate.now();
+            if(u.getTotalTimeInForeground() > 0)
             db.addApplication(new ApplicationUsageData(u.getPackageName(), u.getTotalTimeInForeground(), dtf.format(localDate).toString()));
         }
 
