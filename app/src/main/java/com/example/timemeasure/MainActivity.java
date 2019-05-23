@@ -49,16 +49,10 @@ public class MainActivity extends Activity {
         }
 
         statsBtn = (Button) findViewById(R.id.stats_btn);
-        textExample = (TextView)findViewById(R.id.justAView);
-        shouldBeYesterday = (TextView)findViewById(R.id.shouldBeYesterday);
-        shouldBeToday = (TextView)findViewById(R.id.shouldBeToday);
-        shouldBeYesterday.setText(getYesterdayDateString());
         statsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ustats.printCurrentUsageStatus(MainActivity.this, db);
-                String toDisplay = db.executeCommand();
-                textExample.setText(toDisplay);
 
             }
         });

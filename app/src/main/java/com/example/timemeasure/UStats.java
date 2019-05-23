@@ -35,32 +35,6 @@ public class UStats {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy HH:mm:ss");
     private static final String TAG = UStats.class.getSimpleName();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @SuppressWarnings("ResourceType")
-    public static void getStats(Context context){
-        UsageStatsManager usm = (UsageStatsManager) context.getSystemService("usagestats");
-        int interval = UsageStatsManager.INTERVAL_DAILY;
-        Calendar calendar = Calendar.getInstance();
-        long endTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.DATE, -1);
-        long startTime = calendar.getTimeInMillis();
-
-        Log.d(TAG, "Range start:" + dateFormat.format(startTime) );
-        Log.d(TAG, "Range end:" + dateFormat.format(endTime));
-
-        UsageEvents uEvents = usm.queryEvents(startTime,endTime);
-        while (uEvents.hasNextEvent()){
-            UsageEvents.Event e = new UsageEvents.Event();
-            uEvents.getNextEvent(e);
-
-            if (e != null){
-                Log.d(TAG, "Event: " + e.getPackageName() + "\t" +  e.getTimeStamp());
-                //activitylist.add(e);
-
-            }
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static List<UsageStats> getUsageStatsList(Context context){
         UsageStatsManager usm = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
@@ -79,12 +53,16 @@ public class UStats {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void printUsageStats(List<UsageStats> usageStatsList){
         for (UsageStats u : usageStatsList){
-            Log.d(TAG, "Pkg: " + u.getPackageName() +  "\t" + "ForegroundTime: "
-                    + u.getTotalTimeInForeground()) ;
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            LocalDate localDate = LocalDate.now();
             if(u.getTotalTimeInForeground() > 0)
-            db.addApplication(new ApplicationUsageData(u.getPackageName(), u.getTotalTimeInForeground(), dtf.format(localDate).toString()));
+            {
+                Log.d(TAG, "Pkg: " + u.getPackageName() +  "\t" + "ForegroundTime: "
+                        + u.getTotalTimeInForeground()) ;
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                LocalDate localDate = LocalDate.now();
+
+                db.addApplication(new ApplicationUsageData(u.getPackageName(), u.getTotalTimeInForeground(), dtf.format(localDate).toString()));
+            }
+
         }
 
     }
