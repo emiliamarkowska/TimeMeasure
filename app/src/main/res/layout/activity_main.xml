@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/justAView"
-        android:layout_width="wrap_content"
+        android:layout_width="15dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -38,6 +38,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stats_btn"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintVertical_bias="0.00999999" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="395dp"
+        android:layout_height="598dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="125dp">
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

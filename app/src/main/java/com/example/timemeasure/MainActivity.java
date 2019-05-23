@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +23,7 @@ import java.util.Date;
 //import static com.example.timemeasure.UStats.printCurrentUsageStatus;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     Button statsBtn;
     TextView textExample;
     TextView shouldBeYesterday;
@@ -54,6 +56,12 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 ustats.printCurrentUsageStatus(MainActivity.this, db);
 
+
+                // TO NIŻEJ JEST DO TESTOWANIA FRAGMENTU ADDEXTRAACTIVITY POZDRO
+                //Jak będziecie robić szkielet aplikacji to do wyjebania :)
+
+                AddExtraActivityFragment spinnerQuestionFragment = new AddExtraActivityFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, spinnerQuestionFragment, null).commit();
             }
         });
 
