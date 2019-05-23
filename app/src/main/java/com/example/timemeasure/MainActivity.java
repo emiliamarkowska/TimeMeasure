@@ -13,12 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 //import static com.example.timemeasure.UStats.printCurrentUsageStatus;
 
 
 public class MainActivity extends Activity {
     Button statsBtn;
     TextView textExample;
+    TextView shouldBeYesterday;
+    TextView shouldBeToday;
     public DataBaseHelper db;
     private UStats ustats;
 
@@ -43,6 +50,9 @@ public class MainActivity extends Activity {
 
         statsBtn = (Button) findViewById(R.id.stats_btn);
         textExample = (TextView)findViewById(R.id.justAView);
+        shouldBeYesterday = (TextView)findViewById(R.id.shouldBeYesterday);
+        shouldBeToday = (TextView)findViewById(R.id.shouldBeToday);
+        shouldBeYesterday.setText(getYesterdayDateString());
         statsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,5 +86,16 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Date yesterday() {
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
+    }
+
+    private String getYesterdayDateString() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dateFormat.format(yesterday());
     }
 }
