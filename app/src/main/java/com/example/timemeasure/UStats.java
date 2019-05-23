@@ -53,14 +53,14 @@ public class UStats {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void printUsageStats(List<UsageStats> usageStatsList){
         for (UsageStats u : usageStatsList){
-            if(u.getTotalTimeInForeground() > 0)
+            if(convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()) > 0)
             {
                 Log.d(TAG, "Pkg: " + u.getPackageName() +  "\t" + "ForegroundTime: "
-                        + u.getTotalTimeInForeground()) ;
+                        + convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()) + " min") ;
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDate localDate = LocalDate.now();
 
-                db.addApplication(new ApplicationUsageData(u.getPackageName(), u.getTotalTimeInForeground(), dtf.format(localDate).toString()));
+                db.addApplication(new ApplicationUsageData(u.getPackageName(), convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()), dtf.format(localDate).toString()));
             }
 
         }
@@ -77,5 +77,10 @@ public class UStats {
     private static UsageStatsManager getUsageStatsManager(Context context){
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService("usagestats");
         return usm;
+    }
+
+    public static int convertMilisecondsIntoMinutes(int Miliseconds)
+    {
+        return Miliseconds/60000;
     }
 }

@@ -19,7 +19,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String EVENTS_TABLE_NAME = "EVENTS_TABLE";
     public static final String EVENT_ID = "event_id";
     public static final String EVENT_PACKAGE_NAME = "event_package_name";
-    public static final String EVENT_TIME_OF_USING_IN_MILISECONDS= "event_time_of_using_in_miliseconds";
+    public static final String EVENT_TIME_OF_USING_IN_MILISECONDS = "event_time_of_using_in_miliseconds";
     public static final String EVENT_DATE = "event_date";
 
     //TABLE OF EXTRA ACTIVITIES AND ITS COLUMNS' NAMES
@@ -142,6 +142,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cvExtraActivities.put(EXTRA_ACTIVITY_DATE, extraActivityData.getDate());
         cvExtraActivities.put(EXTRA_ACTIVITY_COMMENT, extraActivityData.getComment());
         SQLiteDatabase db = this.getReadableDatabase();
-        db.insert(EVENTS_TABLE_NAME, null, cvExtraActivities);
+        db.insert(EXTRA_ACTIVITY_TABLE_NAME, null, cvExtraActivities);
     }
 }
