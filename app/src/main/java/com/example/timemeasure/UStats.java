@@ -34,9 +34,9 @@ public class UStats {
     @SuppressLint("SimpleDateFormat")
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy HH:mm:ss");
     private static final String TAG = UStats.class.getSimpleName();
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+   // @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("ResourceType")
-    public static void getStats(Context context){
+   /* public static void getStats(Context context){
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService("usagestats");
         int interval = UsageStatsManager.INTERVAL_DAILY;
         Calendar calendar = Calendar.getInstance();
@@ -58,16 +58,26 @@ public class UStats {
 
             }
         }
-    }
+    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
+
     static List<UsageStats> getUsageStatsList(Context context){
+        //initializing UsageStatsManager object
         UsageStatsManager usm = getUsageStatsManager(context);
+
+        //Setting date range
         Calendar calendar = Calendar.getInstance();
+
+        //End time is equal to current date in milliseconds
         long endTime = calendar.getTimeInMillis();
+
+        //Start time is equal to yesterday's date  in milliseconds
         calendar.add(Calendar.DATE, -1);
         long startTime = calendar.getTimeInMillis();
 
+        //Writing date range in logs
         Log.d(TAG, "Range start:" + dateFormat.format(startTime) );
         Log.d(TAG, "Range end:" + dateFormat.format(endTime));
 
