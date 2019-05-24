@@ -1,12 +1,14 @@
 package com.example.timemeasure;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +19,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 //import static com.example.timemeasure.UStats.printCurrentUsageStatus;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     Button statsBtn;
     TextView textExample;
     TextView shouldBeYesterday;
@@ -29,17 +30,29 @@ public class MainActivity extends Activity {
     public DataBaseHelper db;
     private UStats ustats;
 
+    private Toolbar toolbar;
+    private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
     DataBaseHelper getDbHelper() {
         return this.db;
     }
 
+    @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DataBaseHelper(this, MainActivity.this);
         ustats = new UStats();
+
+        toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        viewPager = findViewById(R.id.pager);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
 
         //Check if permission enabled
