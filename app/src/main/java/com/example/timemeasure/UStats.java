@@ -64,8 +64,7 @@ public class UStats {
                         + convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()) + " min") ;
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDate localDate = LocalDate.now();
-
-                //db.addApplication(new ApplicationUsageData(u.getPackageName(), convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()), dtf.format(localDate).toString()));
+                db.addApplication(new ApplicationUsageData(u.getPackageName(), convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()), dtf.format(localDate).toString()));
 
 
         }
