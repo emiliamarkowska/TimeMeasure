@@ -93,9 +93,9 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 //Adding to database
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+              /*  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDate localDate = LocalDate.now();
-                db.addApplication((new ApplicationUsageData(answerMessage,progress_value*miliseconds , dtf.format(localDate).toString())));
+                db.addApplication((new ApplicationUsageData(answerMessage,progress_value*miliseconds , dtf.format(localDate).toString())));*/
                // messageSendListener.OnMessageSend(answerMessage);
             }
         });
