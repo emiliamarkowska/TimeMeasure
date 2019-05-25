@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity {
+    private DataBaseHelper dataBaseHelper;
     private Toolbar toolbar;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.dataBaseHelper = new DataBaseHelper(this, MainActivity.this);
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    DataBaseHelper getDbHelper()
+    {
+        return this.dataBaseHelper;
     }
 
 

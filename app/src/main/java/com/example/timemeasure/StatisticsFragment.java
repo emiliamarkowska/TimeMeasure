@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  */
 public class StatisticsFragment extends Fragment {
 
-
+    private  DataBaseHelper dataBaseHelper;
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -23,7 +23,9 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_statistics, container, false);
+        View view =  inflater.inflate(R.layout.fragment_statistics, container, false);
+        this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
+        return view;
     }
 
 }

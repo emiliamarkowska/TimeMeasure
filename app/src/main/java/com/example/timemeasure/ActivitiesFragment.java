@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
  */
 public class ActivitiesFragment extends Fragment {
 
+    private  DataBaseHelper dataBaseHelper;
+    Button getStats;
     public ActivitiesFragment() {
         // Required empty public constructor
     }
@@ -23,7 +26,10 @@ public class ActivitiesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activities, container, false);
+        View view = inflater.inflate(R.layout.fragment_activities, container, false);
+        this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
+
+        return view;
     }
 
 }

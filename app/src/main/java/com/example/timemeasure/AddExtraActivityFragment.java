@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 public class AddExtraActivityFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private String answerMessage;
-    public static DataBaseHelper db;
+    private  DataBaseHelper dataBaseHelper;
     private TextView timeTextView;
     private static long miliseconds = 300000;
     private int progress_value;
@@ -46,7 +46,7 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_extra_activity, container, false);
-
+        this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
         final TextView timeTextView = (TextView)view.findViewById(R.id.timeTextView);
         Button addButton = view.findViewById(R.id.addButton);
         Spinner categorySpinner = view.findViewById(R.id.catrgorySpinner);
@@ -95,7 +95,7 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
                 //Adding to database
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDate localDate = LocalDate.now();
-                db.addApplication((new ApplicationUsageData(answerMessage,progress_value*miliseconds , dtf.format(localDate).toString())));
+                dataBaseHelper.addApplication((new ApplicationUsageData(answerMessage,progress_value*miliseconds , dtf.format(localDate).toString())));
                // messageSendListener.OnMessageSend(answerMessage);
             }
         });
