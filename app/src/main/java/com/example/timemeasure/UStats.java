@@ -41,11 +41,12 @@ public class UStats {
         long endTime = calendar.getTimeInMillis();
 
         //Start time is equal to yesterday's date  in milliseconds
+       // calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE ),0,0,0);
         calendar.add(Calendar.DATE, -1);
         long startTime = calendar.getTimeInMillis();
 
         //Writing date range in logs
-        Log.d(TAG, "Range start:" + dateFormat.format(startTime) );
+        Log.d(TAG, "Range start" + dateFormat.format(startTime) );
         Log.d(TAG, "Range end:" + dateFormat.format(endTime));
 
         List<UsageStats> usageStatsList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,startTime,endTime);
@@ -55,16 +56,17 @@ public class UStats {
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void printUsageStats(List<UsageStats> usageStatsList){
+        Log.d(TAG, "dotarlem do printUsageStats");
+        int length = usageStatsList.size();
+        Log.d(TAG, "list length: " + length);
         for (UsageStats u : usageStatsList){
-            if(convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()) > 0)
-            {
                 Log.d(TAG, "Pkg: " + u.getPackageName() +  "\t" + "ForegroundTime: "
                         + convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()) + " min") ;
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDate localDate = LocalDate.now();
 
-                db.addApplication(new ApplicationUsageData(u.getPackageName(), convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()), dtf.format(localDate).toString()));
-            }
+                //db.addApplication(new ApplicationUsageData(u.getPackageName(), convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()), dtf.format(localDate).toString()));
+
 
         }
 

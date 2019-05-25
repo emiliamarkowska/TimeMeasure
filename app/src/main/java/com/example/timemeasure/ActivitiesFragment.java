@@ -1,7 +1,9 @@
 package com.example.timemeasure;
 
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ public class ActivitiesFragment extends Fragment {
 
     private  DataBaseHelper dataBaseHelper;
     Button getStats;
+    UStats uStats;
     public ActivitiesFragment() {
         // Required empty public constructor
     }
@@ -28,7 +31,16 @@ public class ActivitiesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activities, container, false);
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
+        getStats = view.findViewById(R.id.stats_btn);
+        uStats = new UStats();
 
+        getStats.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                uStats.printCurrentUsageStatus(getContext(), dataBaseHelper);
+            }
+        });
         return view;
     }
 
