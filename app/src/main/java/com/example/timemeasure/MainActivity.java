@@ -1,58 +1,38 @@
 package com.example.timemeasure;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-//import static com.example.timemeasure.UStats.printCurrentUsageStatus;
 
 
-public class MainActivity extends Activity {
-    Button statsBtn;
-    TextView textExample;
-    public DataBaseHelper db;
-    private UStats ustats;
 
-    DataBaseHelper getDbHelper() {
-        return this.db;
-    }
+public class MainActivity extends AppCompatActivity {
+    private Toolbar toolbar;
+    private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
+    private TabLayout tabLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = new DataBaseHelper(this, MainActivity.this);
-        ustats = new UStats();
 
+        toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
 
-        //Check if permission enabled
-        if (UStats.getUsageStatsList(this).isEmpty()){
-            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-            startActivity(intent);
-        }
+        viewPager = findViewById(R.id.pager);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
-        statsBtn = (Button) findViewById(R.id.stats_btn);
-        textExample = (TextView)findViewById(R.id.justAView);
-        statsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ustats.printCurrentUsageStatus(MainActivity.this, db);
-                String toDisplay = db.executeCommand();
-                textExample.setText(toDisplay);
-
-            }
-        });
-
+        tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
@@ -77,4 +57,6 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
