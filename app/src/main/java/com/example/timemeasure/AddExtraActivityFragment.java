@@ -48,7 +48,7 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
         View view = inflater.inflate(R.layout.fragment_add_extra_activity, container, false);
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
         final TextView timeTextView = (TextView)view.findViewById(R.id.timeTextView);
-        Button addButton = view.findViewById(R.id.addButton);
+        final Button addButton = view.findViewById(R.id.addButton);
         Spinner categorySpinner = view.findViewById(R.id.catrgorySpinner);
         SeekBar timeSeekBar = view.findViewById(R.id.timeSeekBar);
 
@@ -93,10 +93,8 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 //Adding to database
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                LocalDate localDate = LocalDate.now();
-                dataBaseHelper.addApplication((new ApplicationUsageData(answerMessage,progress_value*miliseconds , dtf.format(localDate).toString())));
-               // messageSendListener.OnMessageSend(answerMessage);
+                dataBaseHelper.addExtraActitivityData(new ExtraActivityData(answerMessage, progress_value));
+// messageSendListener.OnMessageSend(answerMessage);
             }
         });
 

@@ -1,5 +1,12 @@
 package com.example.timemeasure;
 
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+import java.util.Calendar;
+import java.util.Date;
+
 public class ExtraActivityData {
     int ID;
     String category;
@@ -8,6 +15,19 @@ public class ExtraActivityData {
     String comment;
 
     public ExtraActivityData() {}
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ExtraActivityData(String category, int timeInMinutes)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        this.ID = 0;
+        this.category = category;
+        this.timeInMinutes = timeInMinutes;
+        this.date = dateFormat.format(date);
+        this.comment = "";
+    }
 
     public ExtraActivityData(int ID, String category, int timeInMinutes, String date, String comment) {
         this.ID = ID;
