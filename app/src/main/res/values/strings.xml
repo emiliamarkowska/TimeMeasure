@@ -12,11 +12,6 @@
     </string-array>
 
 
-
-
-
-
-
     <string name="hello_world">Hello world!</string>
     <string name="achievements_fragment_title">Achievements</string>
     <string name="statistics_fragment_title">Statistics</string>

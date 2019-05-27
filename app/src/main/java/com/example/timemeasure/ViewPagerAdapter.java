@@ -34,7 +34,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         if(position == 0) {return "Activities";}
         if(position == 1) {return "Statistics";}
-        if(position == 2) {return "Add Extra Activity";}
+        if(position == 2) {return "Add";}
         else return "Achievements";
     }
 }
