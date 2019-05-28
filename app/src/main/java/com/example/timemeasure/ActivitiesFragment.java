@@ -1,7 +1,6 @@
 package com.example.timemeasure;
 
 
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -37,8 +36,8 @@ public class ActivitiesFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activities, container, false);
-        appListCL = view.findViewById(R.id.appListCl);
-        applicationRecyclerView = view.findViewById(R.id.appsRV);
+        appListCL = view.findViewById(R.id.mainLayout);
+        applicationRecyclerView = view.findViewById(R.id.extraActivitiesRV);
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
 
         getStats = view.findViewById(R.id.stats_btn);

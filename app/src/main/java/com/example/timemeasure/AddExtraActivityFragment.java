@@ -93,12 +93,14 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
             public void onClick(View v) {
                 //Adding to database
                 dataBaseHelper.addExtraActitivityData(new ExtraActivityData(answerMessage, progress_value*5));
+                getActivity().getFragmentManager().popBackStack();
 
             }
         });
 
         return view;
     }
+
 
 
 

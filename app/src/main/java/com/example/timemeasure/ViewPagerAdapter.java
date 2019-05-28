@@ -16,11 +16,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         AchievementsFragment achievementsFragment = new AchievementsFragment();
         ActivitiesFragment activitiesFragment = new ActivitiesFragment();
         StatisticsFragment statisticsFragment = new StatisticsFragment();
-        AddExtraActivityFragment addExtraActivityFragment = new AddExtraActivityFragment();
+        ExtraActivitiesFragment extraActivitiesFragment = new ExtraActivitiesFragment();
 
         if(position == 0) {return activitiesFragment;}
-        if(position == 1) {return statisticsFragment;}
-        if(position == 2) {return  addExtraActivityFragment;}
+        if(position == 1) {return extraActivitiesFragment;}
+        if(position == 2) {return  statisticsFragment;}
         else return achievementsFragment;
     }
 
@@ -32,9 +32,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position == 0) {return "Activities";}
-        if(position == 1) {return "Statistics";}
-        if(position == 2) {return "Add";}
+        if(position == 0) {return "Phone Usage";}
+        if(position == 1) {return "Extra Activities";}
+        if(position == 2) {return "Stats";}
         else return "Achievements";
     }
 }

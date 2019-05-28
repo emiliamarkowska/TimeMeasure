@@ -11,6 +11,12 @@
         <item>Hobby</item>
     </string-array>
 
+    <string-array name="date_spinner">
+        <item>wczoraj</item>
+        <item>dzisiaj</item>
+        <item>jutro</item>
+    </string-array>
+
 
     <string name="hello_world">Hello world!</string>
     <string name="achievements_fragment_title">Achievements</string>
