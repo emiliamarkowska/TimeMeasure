@@ -55,9 +55,6 @@ public class UStats {
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void printUsageStats(List<UsageStats> usageStatsList){
-        Log.d(TAG, "dotarlem do printUsageStats");
-        int length = usageStatsList.size();
-        Log.d(TAG, "list length: " + length);
         for (UsageStats u : usageStatsList){
             if(convertMilisecondsIntoMinutes((int)u.getTotalTimeInForeground()) > 0)
             {
