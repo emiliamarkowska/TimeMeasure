@@ -19,9 +19,8 @@ import java.time.format.DateTimeFormatter;
 public class AddExtraActivityFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private String answerMessage;
-    private  DataBaseHelper dataBaseHelper;
+    private DataBaseHelper dataBaseHelper;
     private TextView timeTextView;
-    private static long miliseconds = 300000;
     private int progress_value;
 
 
@@ -93,13 +92,15 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 //Adding to database
-                dataBaseHelper.addExtraActitivityData(new ExtraActivityData(answerMessage, progress_value));
-// messageSendListener.OnMessageSend(answerMessage);
+                dataBaseHelper.addExtraActitivityData(new ExtraActivityData(answerMessage, progress_value*5));
+                getActivity().getFragmentManager().popBackStack();
+
             }
         });
 
         return view;
     }
+
 
 
 

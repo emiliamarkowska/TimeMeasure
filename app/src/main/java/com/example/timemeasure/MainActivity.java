@@ -16,19 +16,20 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
+/*
     private Toolbar toolbar;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
     private TabLayout tabLayout;
+*/
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataBaseHelper = new DataBaseHelper(this, MainActivity.this);
-
-        toolbar = findViewById(R.id.toolBar);
+      dataBaseHelper = new DataBaseHelper(this, MainActivity.this);
+        /*  toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
         viewPager = findViewById(R.id.pager);
@@ -36,12 +37,15 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);*/
 
         if (UStats.getUsageStatsList(this).isEmpty()){
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
             startActivity(intent);
         }
+
+        HomeFragment homeFragment = new HomeFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.mainLayout, homeFragment, null).commit();
     }
 
 
