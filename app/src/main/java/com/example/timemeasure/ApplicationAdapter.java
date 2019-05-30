@@ -16,12 +16,21 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationViewHold
     List<ApplicationUsageData> applicationUsageDataList = new ArrayList<>();
     DataBaseHelper dataBaseHelper;
 
+  //  List <ExtraActivityData> extraActivityDataList = new ArrayList<>();
+
     public ApplicationAdapter(Context context, List<ApplicationUsageData> applicationUsageDataList, DataBaseHelper dataBaseHelper)
     {
         this.context = context;
         this.applicationUsageDataList = applicationUsageDataList;
         this.dataBaseHelper = dataBaseHelper;
     }
+
+/*    public ApplicationAdapter(Context context, List <ExtraActivityData> extraActivityDataList, DataBaseHelper dataBaseHelper)
+    {
+        this.context = context;
+        this.extraActivityDataList = extraActivityDataList;
+        this.dataBaseHelper =dataBaseHelper;
+    }*/
 
     @NonNull
     @Override

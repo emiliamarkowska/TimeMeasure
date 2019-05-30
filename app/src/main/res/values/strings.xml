@@ -4,9 +4,9 @@
     <string name="Add">Add</string>
 
     <string-array name="category_spinner">
-        <item>Book</item>
-        <item>Sex</item>
-        <item>Golf</item>
+        <item>Reading</item>
+        <item>Sport</item>
+        <item>Meetings</item>
         <item>Learning</item>
         <item>Hobby</item>
     </string-array>
