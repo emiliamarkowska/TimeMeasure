@@ -52,11 +52,11 @@ public class ExtraActivitiesFragment extends Fragment implements AdapterView.OnI
         dateSpinner.setAdapter(adapter);
         dateSpinner.setOnItemSelectedListener(this);
 
+        //Displaying extra activities in recycle view
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
         extraActivitiesRV.setLayoutManager(new LinearLayoutManager((MainActivity)getActivity()));
         extaActivitiesAdapter = new ExtaActivitiesAdapter((MainActivity)getActivity(), dataBaseHelper.getExtraActivityDataList(), dataBaseHelper);
         extraActivitiesRV.setAdapter(extaActivitiesAdapter);
-
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override

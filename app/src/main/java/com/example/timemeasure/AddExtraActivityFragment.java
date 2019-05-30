@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
         final Button addButton = view.findViewById(R.id.addButton);
         Spinner categorySpinner = view.findViewById(R.id.catrgorySpinner);
         SeekBar timeSeekBar = view.findViewById(R.id.timeSeekBar);
+        final Fragment fragment = this;
 
         //Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.category_spinner, android.R.layout.simple_spinner_item);
@@ -93,7 +95,8 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
             public void onClick(View v) {
                 //Adding to database
                 dataBaseHelper.addExtraActitivityData(new ExtraActivityData(answerMessage, progress_value*5));
-                getActivity().getFragmentManager().popBackStack();
+                getFragmentManager().popBackStack();
+             //  getActivity().onBackPressed();
 
             }
         });
