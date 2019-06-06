@@ -4,11 +4,11 @@
     <string name="Add">Add</string>
 
     <string-array name="category_spinner">
-        <item>Reading</item>
         <item>Sport</item>
         <item>Meetings</item>
         <item>Learning</item>
         <item>Hobby</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="date_spinner">

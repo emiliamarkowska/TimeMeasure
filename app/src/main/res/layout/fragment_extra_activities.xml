@@ -5,6 +5,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f3f1f2"
     tools:context=".ActivitiesFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -26,7 +27,7 @@
 
     <Button
         android:id="@+id/addButton"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="114dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
@@ -35,8 +36,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="#020609"
         android:text="@string/Add"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#d8d9da"
+        android:textColorHighlight="#00F0F0F0"
+        android:textColorLink="#805F30"
+        android:textCursorDrawable="@drawable/common_full_open_on_phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.928"

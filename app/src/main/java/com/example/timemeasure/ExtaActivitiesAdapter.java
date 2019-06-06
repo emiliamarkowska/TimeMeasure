@@ -37,7 +37,7 @@ public class ExtaActivitiesAdapter extends RecyclerView.Adapter<ApplicationViewH
         public void onBindViewHolder(@NonNull ApplicationViewHolder applicationViewHolder, int i) {
             applicationViewHolder.appName.setText(extraActivityDataList.get(i).getCategory());
             applicationViewHolder.timeOfUsage.setText(String.valueOf(extraActivityDataList.get(i).getTimeInMinutes()));
-            applicationViewHolder.date.setText(extraActivityDataList.get(i).getDate());
+        //    applicationViewHolder.date.setText(extraActivityDataList.get(i).getDate());
 
         }
 
