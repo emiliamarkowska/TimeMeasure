@@ -34,7 +34,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationViewHold
     public void onBindViewHolder(@NonNull ApplicationViewHolder applicationViewHolder, int i) {
         applicationViewHolder.appName.setText(applicationUsageDataList.get(i).getPackageName());
         applicationViewHolder.timeOfUsage.setText(String.valueOf(applicationUsageDataList.get(i).getTimeInMiliseconds()));
-        applicationViewHolder.date.setText(applicationUsageDataList.get(i).getDate());
+        //applicationViewHolder.date.setText(applicationUsageDataList.get(i).getDate());
 
     }
 

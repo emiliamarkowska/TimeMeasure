@@ -5,7 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,5 +158,61 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         {
             exp.printStackTrace();
         }
+    }
+
+    public List<ApplicationUsageData> getPhoneUsageFromDate(String date)
+    {
+        List<ApplicationUsageData> applicationUsageDataList = new ArrayList<>();
+        String selectQuery ="SELECT * FROM " + EVENTS_TABLE_NAME + " WHERE "
+                + EXTRA_ACTIVITY_DATE + "='" + date +"'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst())
+        {
+            do{
+                ApplicationUsageData applicationUsageData = new ApplicationUsageData();
+                applicationUsageData.setId(cursor.getInt(0));
+                applicationUsageData.setPackageName(cursor.getString(1));
+                applicationUsageData.setTimeInMiliseconds(cursor.getInt(2));
+                applicationUsageData.setDate(cursor.getString(3));
+                applicationUsageDataList.add(applicationUsageData);
+            } while (cursor.moveToNext());
+        }
+        return applicationUsageDataList;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean isDateChanged()
+    {
+        String selectQuery = "SELECT * FROM " + EVENTS_TABLE_NAME + " ORDER BY " +
+                EVENT_ID + " DESC LIMIT 1;";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        String lastDate = cursor.getString(3);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+        if(lastDate.equals(dtf.format(localDate))) return false;
+        else return true;
+    }
+
+    public void updateRecords(int time, String date)
+    {
+        String updateQuery = "UPDATE " + EVENTS_TABLE_NAME +
+                " SET " +  EVENT_TIME_OF_USING_IN_MILISECONDS + "='" + time +
+                "' WHERE " + EVENT_DATE + "='" + date + "';";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(updateQuery);
+    }
+
+    public boolean isEmpty()
+    {
+        boolean isEmpt = true;
+        String selectQuery = "SELECT * FROM " + EVENTS_TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.getCount() > 0 ) isEmpt = false;
+        return isEmpt;
     }
 }

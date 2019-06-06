@@ -1,6 +1,7 @@
 package com.example.timemeasure;
 
 
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -46,7 +47,11 @@ public class ActivitiesFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                uStats.printCurrentUsageStatus(getContext(), dataBaseHelper);
+                try {
+                    uStats.printCurrentUsageStatus(getContext(), dataBaseHelper);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
                 applicationRecyclerView.setLayoutManager(new LinearLayoutManager((MainActivity)getActivity()));
                 applicationAdapter = new ApplicationAdapter((MainActivity)getActivity(), dataBaseHelper.getApplicationUsageDataList(),dataBaseHelper);
                 applicationRecyclerView.setAdapter(applicationAdapter);
