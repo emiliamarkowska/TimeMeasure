@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,7 @@ import android.view.MenuItem;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CalendarFragment.OnDatePickedListener {
     private DataBaseHelper dataBaseHelper;
 /*
     private Toolbar toolbar;
@@ -76,4 +77,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onDatePicked(String datePicked) {
+        ActivitiesFragment activitiesFragment = new ActivitiesFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("datePicked", datePicked);
+        activitiesFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().replace(R.id.mainLayout, activitiesFragment, null);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

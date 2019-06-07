@@ -1,18 +1,25 @@
 package com.example.timemeasure;
 
 
+import android.app.DatePickerDialog;
+import android.app.FragmentManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+
+import java.util.Calendar;
 
 
 /**
@@ -24,11 +31,12 @@ public class ActivitiesFragment extends Fragment {
     private  ApplicationAdapter applicationAdapter;
     public  RecyclerView applicationRecyclerView;
     ConstraintLayout appListCL;
-    Button getStats;
+    Button getFromDate;
     UStats uStats;
     public ActivitiesFragment() {
         // Required empty public constructor
     }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -38,12 +46,32 @@ public class ActivitiesFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activities, container, false);
+        getFromDate = view.findViewById(R.id.selectFromDateButton);
         appListCL = view.findViewById(R.id.mainLayout);
         applicationRecyclerView = view.findViewById(R.id.extraActivitiesRV);
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
-
-
         uStats = new UStats();
+        Bundle bundle = getArguments();
+        String datePicked = bundle.getString("datePicked");
+        if(!bundle.isEmpty())
+        {
+            getFromDate.setText(datePicked);
+        }
+
+        getFromDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                AddExtraActivityFragment addExtraActivityFragment = new AddExtraActivityFragment();
+                CalendarFragment calendarFragment = new CalendarFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                //PROBLEM HERE!!!!!!!!!!!!!!!!!!
+                transaction.replace(R.id.mainLayout, calendarFragment );
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+            }
+        });
 
                 try {
                     uStats.printCurrentUsageStatus(getContext(), dataBaseHelper);

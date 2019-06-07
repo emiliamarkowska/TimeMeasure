@@ -206,6 +206,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(updateQuery);
     }
 
+    public boolean checkIfExistsGivenRecord(String packageName, String date)
+    {
+        boolean ifExists = false;
+        String checkIf = "SELECT * FROM " + EVENTS_TABLE_NAME +
+                " WHERE " + EVENT_PACKAGE_NAME + "='" + packageName + "' AND "
+                + EVENT_DATE + "='" + date +"';";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(checkIf, null);
+        if(cursor.getCount() > 0) ifExists = true;
+        else ifExists = false;
+        return ifExists;
+    }
+
     public boolean isEmpty()
     {
         boolean isEmpt = true;
