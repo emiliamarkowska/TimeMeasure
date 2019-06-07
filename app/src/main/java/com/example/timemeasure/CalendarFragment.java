@@ -1,15 +1,17 @@
 package com.example.timemeasure;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends android.support.v4.app.Fragment {
     CalendarView calendarView;
     String dateChosen;
     OnDatePickedListener onDatePickedListener;
@@ -32,8 +34,19 @@ public class CalendarFragment extends Fragment {
        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
            @Override
            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-               dateChosen = year + "/" + month + "/" + dayOfMonth;
-               onDatePickedListener.onDatePicked(dateChosen);
+               dateChosen = year + "/" + (month+1)+ "/" + dayOfMonth;
+               //onDatePickedListener.onDatePicked(dateChosen);
+               Bundle bundle = new Bundle();
+               bundle.putString("datePicked", dateChosen);
+
+               FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+               FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+               ActivitiesFragment activitiesFragment = new ActivitiesFragment();
+               activitiesFragment.setArguments(bundle);
+               fragmentTransaction.replace(R.id.mainLayout, activitiesFragment);
+               fragmentTransaction.commit();
+
            }
        });
         return view;
@@ -51,4 +64,5 @@ public class CalendarFragment extends Fragment {
         }
 
     }
+
 }

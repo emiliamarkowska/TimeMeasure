@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
       dataBaseHelper = new DataBaseHelper(this, MainActivity.this);
+      Bundle bundle = new Bundle();
+      bundle.putString("datePicked", "Select date");
         /*  toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     }
 
 
-    @Override
+   @Override
     public void onDatePicked(String datePicked) {
         ActivitiesFragment activitiesFragment = new ActivitiesFragment();
         Bundle bundle = new Bundle();

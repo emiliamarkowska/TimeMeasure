@@ -33,6 +33,8 @@ public class ActivitiesFragment extends Fragment {
     ConstraintLayout appListCL;
     Button getFromDate;
     UStats uStats;
+    CalendarFragment calendarFragment;
+    int firstTime;
     public ActivitiesFragment() {
         // Required empty public constructor
     }
@@ -51,12 +53,13 @@ public class ActivitiesFragment extends Fragment {
         applicationRecyclerView = view.findViewById(R.id.extraActivitiesRV);
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
         uStats = new UStats();
-        Bundle bundle = getArguments();
-        String datePicked = bundle.getString("datePicked");
-        if(!bundle.isEmpty())
-        {
-            getFromDate.setText(datePicked);
-        }
+       try{
+           Bundle bundle = getArguments();
+           String datePicked = bundle.getString("datePicked");
+           getFromDate.setText(datePicked);
+       } catch (NullPointerException e){}
+
+
 
         getFromDate.setOnClickListener(new View.OnClickListener() {
 
@@ -65,9 +68,7 @@ public class ActivitiesFragment extends Fragment {
                 AddExtraActivityFragment addExtraActivityFragment = new AddExtraActivityFragment();
                 CalendarFragment calendarFragment = new CalendarFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                //PROBLEM HERE!!!!!!!!!!!!!!!!!!
                 transaction.replace(R.id.mainLayout, calendarFragment );
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                 transaction.commit();
             }
@@ -84,6 +85,11 @@ public class ActivitiesFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void updateDate(String date)
+    {
+        getFromDate.setText(date);
     }
 
 
