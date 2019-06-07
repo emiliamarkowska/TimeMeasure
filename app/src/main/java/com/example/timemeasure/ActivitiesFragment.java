@@ -31,6 +31,7 @@ public class ActivitiesFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,12 +42,9 @@ public class ActivitiesFragment extends Fragment {
         applicationRecyclerView = view.findViewById(R.id.extraActivitiesRV);
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
 
-        getStats = view.findViewById(R.id.stats_btn);
+
         uStats = new UStats();
-        getStats.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View v) {
+
                 try {
                     uStats.printCurrentUsageStatus(getContext(), dataBaseHelper);
                 } catch (PackageManager.NameNotFoundException e) {
@@ -55,8 +53,8 @@ public class ActivitiesFragment extends Fragment {
                 applicationRecyclerView.setLayoutManager(new LinearLayoutManager((MainActivity)getActivity()));
                 applicationAdapter = new ApplicationAdapter((MainActivity)getActivity(), dataBaseHelper.getApplicationUsageDataList(),dataBaseHelper);
                 applicationRecyclerView.setAdapter(applicationAdapter);
-            }
-        });
+
+
         return view;
     }
 
