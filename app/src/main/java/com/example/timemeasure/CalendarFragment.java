@@ -34,7 +34,14 @@ public class CalendarFragment extends android.support.v4.app.Fragment {
        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
            @Override
            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-               dateChosen = year + "/" + (month+1)+ "/" + dayOfMonth;
+               String dayOfDate = dayOfMonth + "";
+               String monthOfDate = (month + 1) + "";
+               String yearOfDate = year + "";
+               if(dayOfMonth < 10)
+                   dayOfDate = "0" + dayOfDate;
+               if(month < 10)
+                   monthOfDate = "0" + monthOfDate;
+               dateChosen = yearOfDate + "/" + monthOfDate+ "/" + dayOfDate;
                //onDatePickedListener.onDatePicked(dateChosen);
                Bundle bundle = new Bundle();
                bundle.putString("datePicked", dateChosen);

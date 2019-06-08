@@ -60,16 +60,20 @@ public class UStats {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void printUsageStats(List<UsageStats> usageStatsList) throws PackageManager.NameNotFoundException {
         for (UsageStats u : usageStatsList)
-            if (convertMilisecondsIntoMinutes((int) u.getTotalTimeInForeground()) > 0) {
+            if (((int) u.getTotalTimeInForeground())/60000 > 0) {
                 PackageInfo packageInfo = new PackageInfo();
                 String appName = packageInfo.packageName;
                 //applicationInfo.loadLabel(contextHere.getPackageManager()).toString();
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 LocalDate localDate = LocalDate.now();
-                if (db.checkIfExistsGivenRecord(u.getPackageName(), dtf.format(localDate)))
-                db.updateRecords(/*convertMilisecondsIntoMinutes((int) u.getTotalTimeInForeground())*/ (int)u.getTotalTimeInForeground(), dtf.format(localDate));
-                    else
-                db.addApplication(new ApplicationUsageData(u.getPackageName(), /*convertMilisecondsIntoMinutes(*/(int) u.getTotalTimeInForeground(), dtf.format(localDate)));
+             if (db.checkIfExistsGivenRecord(u.getPackageName(), dtf.format(localDate)))
+             {
+                 Log.e("time to update: ", u.getTotalTimeInForeground() + "");
+                db.updateRecords(u.getPackageName(),  u.getTotalTimeInForeground(), dtf.format(localDate));
+             }
+
+                   else
+                db.addApplication(new ApplicationUsageData(u.getPackageName(),u.getTotalTimeInForeground(), dtf.format(localDate)));
 
             }
 
@@ -87,10 +91,6 @@ public class UStats {
         return usm;
     }
 
-    public static long convertMilisecondsIntoMinutes(long Miliseconds)
-    {
-        return Miliseconds/60000;
-    }
 }
 
 

@@ -42,7 +42,14 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationViewHold
     @Override
     public void onBindViewHolder(@NonNull ApplicationViewHolder applicationViewHolder, int i) {
         applicationViewHolder.appName.setText(applicationUsageDataList.get(i).getPackageName());
-        applicationViewHolder.timeOfUsage.setText(String.valueOf(applicationUsageDataList.get(i).getTimeInMiliseconds()));
+        if(applicationUsageDataList.get(i).getTimeInMiliseconds() < 60)
+        applicationViewHolder.timeOfUsage.setText(String.valueOf(applicationUsageDataList.get(i).getTimeInMiliseconds()) + " min");
+        else
+        {
+            int hours = (int)applicationUsageDataList.get(i).getTimeInMiliseconds() / 60;
+            int minutes = (int)applicationUsageDataList.get(i).getTimeInMiliseconds() - hours * 60;
+            applicationViewHolder.timeOfUsage.setText(String.valueOf(hours) + "h " + String.valueOf(minutes) +"min");
+        }
         //applicationViewHolder.date.setText(applicationUsageDataList.get(i).getDate());
 
     }

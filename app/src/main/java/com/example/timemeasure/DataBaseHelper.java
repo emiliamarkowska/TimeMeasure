@@ -3,6 +3,7 @@ package com.example.timemeasure;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
@@ -108,7 +109,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     {
         ContentValues cvApps = new ContentValues();
         cvApps.put(EVENT_PACKAGE_NAME, application.getPackageName());
-        cvApps.put(EVENT_TIME_OF_USING_IN_MILISECONDS, application.getTimeInMiliseconds());
+        cvApps.put(EVENT_TIME_OF_USING_IN_MILISECONDS,application.getTimeInMiliseconds());
         cvApps.put(EVENT_DATE, application.getDate());
         SQLiteDatabase db = this.getReadableDatabase();
         db.insert(EVENTS_TABLE_NAME, null, cvApps);
@@ -143,6 +144,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return extraactivities;
     }
 
+
     public void addExtraActitivityData(ExtraActivityData extraActivityData)
     {
         try {
@@ -164,7 +166,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     {
         List<ApplicationUsageData> applicationUsageDataList = new ArrayList<>();
         String selectQuery ="SELECT * FROM " + EVENTS_TABLE_NAME + " WHERE "
-                + EXTRA_ACTIVITY_DATE + "='" + date +"'";
+                + EVENT_DATE + "='" + date +"'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -197,13 +199,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
-    public void updateRecords(int time, String date)
+    public void updateRecords(String packageName, long time, String date)
     {
         String updateQuery = "UPDATE " + EVENTS_TABLE_NAME +
                 " SET " +  EVENT_TIME_OF_USING_IN_MILISECONDS + "='" + time +
-                "' WHERE " + EVENT_DATE + "='" + date + "';";
+                "' WHERE " + EVENT_DATE + "='" + date + "' AND " +
+                EVENT_PACKAGE_NAME + "='" + packageName + "';";
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(updateQuery);
+
+        int id = getId(packageName, date);
+        getApplicationUsageDataList().get(id).setTimeInMiliseconds(time);
+
+    }
+
+    public int getId(String packageName, String date)
+    {
+        String findRecord = "SELECT * FROM " + EVENTS_TABLE_NAME +
+                " WHERE " + EVENT_PACKAGE_NAME + "='" + packageName + "' AND "
+                + EVENT_DATE + "='" + date +"';";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(findRecord, null);
+        if(cursor.getCount() == 1)
+        {
+            try{
+                int id = cursor.getInt(0);
+                return id;
+            } catch (CursorIndexOutOfBoundsException e) {}
+        }
+        return 0;
     }
 
     public boolean checkIfExistsGivenRecord(String packageName, String date)

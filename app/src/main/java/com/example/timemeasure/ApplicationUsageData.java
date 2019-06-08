@@ -10,7 +10,7 @@ public class ApplicationUsageData {
     ApplicationUsageData(String packageName, long timeInMiliseconds, String date)
     {
         this.packageName = packageName;
-        this.timeInMiliseconds = timeInMiliseconds;
+        this.timeInMiliseconds = convertMilisecondsIntoMinutes(timeInMiliseconds);
         this.date = date;
     }
     public int getId() {
@@ -34,7 +34,7 @@ public class ApplicationUsageData {
     }
 
     public void setTimeInMiliseconds(long timeInMiliseconds) {
-        this.timeInMiliseconds = timeInMiliseconds;
+        this.timeInMiliseconds = convertMilisecondsIntoMinutes(timeInMiliseconds);
     }
 
     public String getDate() {
@@ -43,5 +43,10 @@ public class ApplicationUsageData {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public static long convertMilisecondsIntoMinutes(long Miliseconds)
+    {
+        return Miliseconds/60000;
     }
 }
