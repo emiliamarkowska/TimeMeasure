@@ -1,6 +1,9 @@
 package com.example.timemeasure;
 
-public class ApplicationUsageData {
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+public class ApplicationUsageData implements Comparable<ApplicationUsageData> {
     int id;
     String packageName;
     long timeInMiliseconds;
@@ -49,4 +52,10 @@ public class ApplicationUsageData {
     {
         return Miliseconds/60000;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public int compareTo(ApplicationUsageData data) {
+        return Long.compare(getTimeInMiliseconds(), data.getTimeInMiliseconds());
+        }
 }

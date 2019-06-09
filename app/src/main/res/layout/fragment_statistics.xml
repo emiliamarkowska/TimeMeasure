@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StatisticsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F3F1F2"
-        android:gravity="center"
-        android:text="@string/statistics_fragment_title"
-        android:textSize="24dp" />
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="401dp"
+        android:layout_height="681dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/barChartYAxisTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/barChart"
+        android:layout_alignRight="@+id/barChart"
+        android:layout_alignBottom="@+id/barChart"
+        android:layout_marginEnd="-55dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="350dp"
+        android:rotation="90"
+        android:text="@string/yAxisTitle" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="392dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/barChart"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignLeft="@+id/barChart"
+        android:layout_alignEnd="@+id/barChart"
+        android:layout_alignRight="@+id/barChart"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="-50dp"
+        android:text="@string/chartTitle"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="25dp"/>
+
+
+</RelativeLayout>
