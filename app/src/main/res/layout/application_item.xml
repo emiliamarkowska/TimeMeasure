@@ -11,12 +11,13 @@
         android:id="@+id/applicationIcon"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:contentDescription="TODO"
         android:src="@mipmap/ic_launcher_round"
         app:srcCompat="@android:drawable/radiobutton_off_background" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginStart="16dp" android:orientation="horizontal"
         android:layout_gravity="center"
         android:layout_marginLeft="16dp">
 
@@ -24,7 +25,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="16dp" android:layout_weight="1"
             android:textStyle="bold"
             android:text="appName"
             android:layout_marginLeft="16dp"
@@ -32,7 +33,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="100dp" android:layout_weight="1"
             android:textStyle="bold"
             android:text="timeOfUsing"
             android:layout_marginLeft="100dp"

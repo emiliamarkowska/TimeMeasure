@@ -48,10 +48,6 @@ public class HomeFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
 
-
-
-
-
         return  view;
     }
 

@@ -4,7 +4,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import android.widget.Toast;
+
 
 public class AddExtraActivityFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -23,12 +22,15 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
     private DataBaseHelper dataBaseHelper;
     private TextView timeTextView;
     private int progress_value;
+    private  TextView spinnerTextView;
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //GET SPINNER POSITION
         answerMessage = parent.getItemAtPosition(position).toString();
+        spinnerTextView.setText(answerMessage);
+
     }
 
     public interface OnMessageSendListener
@@ -49,15 +51,19 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
         this.dataBaseHelper = ((MainActivity)getActivity()).getDbHelper();
         final TextView timeTextView = (TextView)view.findViewById(R.id.timeTextView);
         final Button addButton = view.findViewById(R.id.addButton);
-        Spinner categorySpinner = view.findViewById(R.id.catrgorySpinner);
+        Spinner categorySpinner = view.findViewById(R.id.categorySpinner);
         SeekBar timeSeekBar = view.findViewById(R.id.timeSeekBar);
         final Fragment fragment = this;
 
+        spinnerTextView = view.findViewById(R.id.spinnerTextView);
+        spinnerTextView.setText("Sport");
+
         //Spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.category_spinner, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.category_spinner, android.R.layout.simple_dropdown_item_1line);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(this);
+
 
 
         //SEEK BAR LISTENER
@@ -96,6 +102,7 @@ public class AddExtraActivityFragment extends Fragment implements AdapterView.On
                 //Adding to database
                 dataBaseHelper.addExtraActitivityData(new ExtraActivityData(answerMessage, progress_value*5));
                 getFragmentManager().popBackStack();
+                Toast.makeText(getActivity(),answerMessage + " " + progress_value*5 + " min",Toast.LENGTH_LONG).show();
              //  getActivity().onBackPressed();
 
             }
